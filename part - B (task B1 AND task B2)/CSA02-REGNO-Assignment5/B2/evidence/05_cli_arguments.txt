@@ -1,0 +1,65 @@
+$ ./b2_bloodbank                         # no arguments
+error: no command given
+usage: bloodbank find <GROUP>
+       bloodbank register <ID> <GROUP>   (name, age, phone are read from standard input)
+       bloodbank issue <GROUP>
+valid groups: A+ A- B+ B- AB+ AB- O+ O-
+[exit status 2]
+$ ./b2_bloodbank find O+ extra           # too many arguments
+error: 'find' needs 1 argument(s) but 2 given
+usage: bloodbank find <GROUP>
+       bloodbank register <ID> <GROUP>   (name, age, phone are read from standard input)
+       bloodbank issue <GROUP>
+valid groups: A+ A- B+ B- AB+ AB- O+ O-
+[exit status 2]
+$ ./b2_bloodbank find                    # too few arguments
+error: 'find' needs 1 argument(s) but 0 given
+usage: bloodbank find <GROUP>
+       bloodbank register <ID> <GROUP>   (name, age, phone are read from standard input)
+       bloodbank issue <GROUP>
+valid groups: A+ A- B+ B- AB+ AB- O+ O-
+[exit status 2]
+$ ./b2_bloodbank issue A2                # invalid blood group
+error: 'A2' is not a valid blood group
+usage: bloodbank find <GROUP>
+       bloodbank register <ID> <GROUP>   (name, age, phone are read from standard input)
+       bloodbank issue <GROUP>
+valid groups: A+ A- B+ B- AB+ AB- O+ O-
+[exit status 2]
+$ ./b2_bloodbank find o+                 # lower case is not valid
+error: 'o+' is not a valid blood group
+usage: bloodbank find <GROUP>
+       bloodbank register <ID> <GROUP>   (name, age, phone are read from standard input)
+       bloodbank issue <GROUP>
+valid groups: A+ A- B+ B- AB+ AB- O+ O-
+[exit status 2]
+$ ./b2_bloodbank donate O+               # unknown command
+error: unknown command 'donate'
+usage: bloodbank find <GROUP>
+       bloodbank register <ID> <GROUP>   (name, age, phone are read from standard input)
+       bloodbank issue <GROUP>
+valid groups: A+ A- B+ B- AB+ AB- O+ O-
+[exit status 2]
+$ ./b2_bloodbank register abc O+         # invalid donor ID
+error: 'abc' is not a valid donor ID (1-999999)
+usage: bloodbank find <GROUP>
+       bloodbank register <ID> <GROUP>   (name, age, phone are read from standard input)
+       bloodbank issue <GROUP>
+valid groups: A+ A- B+ B- AB+ AB- O+ O-
+[exit status 2]
+# valid commands, run in a scratch copy of the data:
+$ ./b2_bloodbank find O+
+Donors with blood group O+:
+  7001   Asha Menon          age 29  phone 9876500001   last donated 2026-09-14
+  7006   Suresh Kumar        age 52  phone 9876500006   last donated 2026-06-18
+  7008   Arjun Das           age 45  phone 9876500008   last donated 2026-09-01
+3 donor(s) found, 0 bad line(s) skipped.
+[exit status 0]
+$ ./b2_bloodbank issue O-
+Issued 1 unit of O-; 5 unit(s) left.
+[exit status 0]
+$ cat data/stock.txt | tail -3
+AB- 2
+O+ 20
+O- 5
+[exit status 0]

@@ -1,0 +1,17 @@
+$ ./b2_memerr_fixed all             # built with -fsanitize=address
+name = Ramanathan Iyer
+id = 7001
+freed once, second free(NULL) harmless
+list released
+[exit status 0]
+$ valgrind --leak-check=full ./b2_memerr_fixed all
+name = Ramanathan Iyer
+id = 7001
+freed once, second free(NULL) harmless
+list released
+HEAP SUMMARY:
+    in use at exit: 0 bytes in 0 blocks
+  total heap usage: 5 allocs, 5 frees, 4,928 bytes allocated
+All heap blocks were freed -- no leaks are possible
+ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[exit status 0]

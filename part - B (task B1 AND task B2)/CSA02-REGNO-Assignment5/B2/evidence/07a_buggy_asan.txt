@@ -1,0 +1,41 @@
+# b2_memerr_buggy built with -fsanitize=address (AddressSanitizer + LeakSanitizer)
+$ ./b2_memerr_buggy overflow
+=================================================================
+==3005==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x502000000018 at pc 0x7f3efe2fb303 bp 0x7ffd11009b80 sp 0x7ffd11009328
+WRITE of size 16 at 0x502000000018 thread T0
+    #0 0x7f3efe2fb302 in memcpy ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors_memintrinsics.inc:115
+    #1 0x555e6a57b2fd in heap_overflow /home/claude/CSA02-REGNO-Assignment5/B2/b2_memerr_buggy.c:14
+    #2 0x555e6a57b552 in main /home/claude/CSA02-REGNO-Assignment5/B2/b2_memerr_buggy.c:44
+    #3 0x7f3efde2a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7f3efde2a28a in __libc_start_main_impl ../csu/libc-start.c:360
+[exit status 1]
+$ ./b2_memerr_buggy uaf
+=================================================================
+==3012==ERROR: AddressSanitizer: heap-use-after-free on address 0x502000000010 at pc 0x55631ddc83c6 bp 0x7fffd8b74830 sp 0x7fffd8b74820
+READ of size 4 at 0x502000000010 thread T0
+    #0 0x55631ddc83c5 in use_after_free /home/claude/CSA02-REGNO-Assignment5/B2/b2_memerr_buggy.c:24
+    #1 0x55631ddc859d in main /home/claude/CSA02-REGNO-Assignment5/B2/b2_memerr_buggy.c:45
+    #2 0x7f89af02a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f89af02a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #4 0x55631ddc8204 in _start (/tmp/b2_buggy_asan+0x1204) (BuildId: 2abe2b94d178f6a6a27b503307583cfb5c79b624)
+[exit status 1]
+$ ./b2_memerr_buggy doublefree
+=================================================================
+==3019==ERROR: AddressSanitizer: attempting double-free on 0x502000000010 in thread T0:
+    #0 0x7f32726fc4d8 in free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:52
+    #1 0x55ada1344416 in double_free /home/claude/CSA02-REGNO-Assignment5/B2/b2_memerr_buggy.c:31
+    #2 0x55ada13445e8 in main /home/claude/CSA02-REGNO-Assignment5/B2/b2_memerr_buggy.c:46
+    #3 0x7f327222a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7f327222a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #5 0x55ada1344204 in _start (/tmp/b2_buggy_asan+0x1204) (BuildId: 2abe2b94d178f6a6a27b503307583cfb5c79b624)
+[exit status 1]
+$ ./b2_memerr_buggy leak
+
+=================================================================
+==3026==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 800 byte(s) in 1 object(s) allocated from:
+    #0 0x7f7391efd9c7 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0x5588fded842f in leak /home/claude/CSA02-REGNO-Assignment5/B2/b2_memerr_buggy.c:36
+    #2 0x5588fded8633 in main /home/claude/CSA02-REGNO-Assignment5/B2/b2_memerr_buggy.c:47
+[exit status 1]

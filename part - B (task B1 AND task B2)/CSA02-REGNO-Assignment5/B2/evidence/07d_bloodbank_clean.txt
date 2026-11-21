@@ -1,0 +1,25 @@
+$ (AddressSanitizer build) find, damaged file, issue, register, bad args, missing file
+scenarios finished
+ASan: no error report
+[exit status 0]
+$ valgrind --leak-check=full ./b2_bloodbank  (same six scenarios)
+find O+: valgrind exit 0
+damaged file: valgrind exit 0
+issue A+: valgrind exit 0
+register: valgrind exit 0
+bad group (usage error 2): valgrind exit 2
+missing file: valgrind exit 1
+[exit status 0]
+# valgrind exit 0 = no memory errors / leaks; 2 and 1 are the program's own error codes, 9 would mean valgrind found an error
+$ valgrind --leak-check=full ./b2_bloodbank find O+     # full summary
+Donors with blood group O+:
+  7001   Asha Menon          age 29  phone 9876500001   last donated 2026-09-14
+  7006   Suresh Kumar        age 52  phone 9876500006   last donated 2026-06-18
+  7008   Arjun Das           age 45  phone 9876500008   last donated 2026-09-01
+3 donor(s) found, 0 bad line(s) skipped.
+HEAP SUMMARY:
+    in use at exit: 0 bytes in 0 blocks
+  total heap usage: 3 allocs, 3 frees, 8,664 bytes allocated
+All heap blocks were freed -- no leaks are possible
+ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[exit status 0]

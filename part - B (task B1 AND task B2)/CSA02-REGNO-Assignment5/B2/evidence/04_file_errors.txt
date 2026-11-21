@@ -1,0 +1,33 @@
+$ BB_DONORS=/nonexistent/donors.txt ./b2_bloodbank find O+     # missing file
+/nonexistent/donors.txt: No such file or directory
+[exit status 1]
+$ BB_STOCK=missing_stock.txt ./b2_bloodbank issue O+          # missing file
+missing_stock.txt: No such file or directory
+[exit status 1]
+$ ls -l ro_donors.txt ro_stock.txt noread.txt        # in a scratch copy
+---------- noread.txt
+-r--r--r-- ro_donors.txt
+-r--r--r-- ro_stock.txt
+[exit status 0]
+$ BB_DONORS=noread.txt ./b2_bloodbank find O+                # file without read permission
+noread.txt: Permission denied
+[exit status 1]
+$ printf 'Test Donor\n30\n9876543210\n' | BB_DONORS=ro_donors.txt ./b2_bloodbank register 7999 O+    # read-only file
+Donor name  (max 19 characters): Donor age   (18-65): Donor phone (10-15 digits): ro_donors.txt: Permission denied
+[exit status 1]
+$ BB_STOCK=ro_stock.txt ./b2_bloodbank issue O+              # read-only stock file
+ro_stock.txt: Permission denied
+[exit status 1]
+$ BB_DONORS=data/donors_bad.txt ./b2_bloodbank find O+     # damaged data file: bad lines reported, program continues
+data/donors_bad.txt:3: malformed record - skipped
+data/donors_bad.txt:4: malformed record - skipped
+data/donors_bad.txt:5: malformed record - skipped
+data/donors_bad.txt:6: malformed record - skipped
+data/donors_bad.txt:8: malformed record - skipped
+data/donors_bad.txt:9: line longer than 127 characters - skipped
+Donors with blood group O+:
+  7101   Neha Kapoor         age 31  phone 9876511111   last donated 2026-09-10
+  7106   Anil Gupta          age 44  phone 9876555555   last donated 2026-05-05
+  7109   Sana Iqbal          age 28  phone 9876588888   last donated 2026-02-02
+3 donor(s) found, 6 bad line(s) skipped.
+[exit status 0]

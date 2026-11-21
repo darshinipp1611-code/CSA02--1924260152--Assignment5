@@ -1,0 +1,32 @@
+# names.txt = 4 lines: 4 chars, 60 chars, 100000 chars, 4 chars
+$ ./b2_getline_alt < names.txt
+line 1: length = 4 chars, buffer capacity now = 120 bytes, getline took 20.1 us
+        text   = "Anil"
+line 2: length = 60 chars, buffer capacity now = 120 bytes, getline took 0.1 us
+line 3: length = 100000 chars, buffer capacity now = 130032 bytes, getline took 52.1 us
+line 4: length = 4 chars, buffer capacity now = 130032 bytes, getline took 0.1 us
+        text   = "Ravi"
+[exit status 0]
+# time to read ONE line of length L, and heap used (= buffer capacity):
+$ ./b2_getline_alt < line_of_1000_chars.txt
+line 1: length = 1000 chars, buffer capacity now = 1002 bytes, getline took 21.4 us
+[exit status 0]
+$ ./b2_getline_alt < line_of_10000_chars.txt
+line 1: length = 10000 chars, buffer capacity now = 16388 bytes, getline took 23.2 us
+[exit status 0]
+$ ./b2_getline_alt < line_of_100000_chars.txt
+line 1: length = 100000 chars, buffer capacity now = 131104 bytes, getline took 63.3 us
+[exit status 0]
+$ ./b2_getline_alt < line_of_1000000_chars.txt
+line 1: length = 1000000 chars, buffer capacity now = 1048832 bytes, getline took 659.3 us
+[exit status 0]
+$ ./b2_getline_alt < line_of_10000000_chars.txt
+line 1: length = 10000000 chars, buffer capacity now = 16781312 bytes, getline took 6420.9 us
+[exit status 0]
+$ valgrind --leak-check=full ./b2_getline_alt < names.txt   # who frees the buffer? main() does
+HEAP SUMMARY:
+    in use at exit: 0 bytes in 0 blocks
+  total heap usage: 9 allocs, 9 frees, 264,280 bytes allocated
+All heap blocks were freed -- no leaks are possible
+ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[exit status 0]

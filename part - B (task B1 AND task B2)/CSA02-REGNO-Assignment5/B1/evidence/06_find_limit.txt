@@ -1,0 +1,14 @@
+$ ./find_limit.sh ./b1_limit
+Largest n for which power_linear (recursive) still works:
+stack size       max n (survives)     first n that crashes  
+1024 KB          31856                31857                 
+      bytes of stack per call ~ 32
+2048 KB          64691                64692                 
+      bytes of stack per call ~ 32
+4096 KB          130196               130197                
+      bytes of stack per call ~ 32
+8192 KB          261376               261377                
+      bytes of stack per call ~ 32
+16384 KB         523531               523532                
+      bytes of stack per call ~ 32
+[exit status 0]

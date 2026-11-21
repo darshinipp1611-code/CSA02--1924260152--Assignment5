@@ -1,0 +1,9 @@
+# same inputs, safe version: lines 1,3,4 fit; line 2 has 60 characters
+$ (echo Anil; python3 -c "print('C'*60)"; echo Ravi; echo 123456789) | ./b2_fgets_safe
+Enter donor name 1 (max 9 characters): accepted : name = "Anil" (strlen = 4), age = 25 (unchanged)
+Enter donor name 2 (max 9 characters): REJECTED: name is longer than 9 characters, rest of line discarded
+Enter donor name 3 (max 9 characters): accepted : name = "Ravi" (strlen = 4), age = 25 (unchanged)
+Enter donor name 4 (max 9 characters): accepted : name = "123456789" (strlen = 9), age = 25 (unchanged)
+Enter donor name 5 (max 9 characters): 
+(end of input)
+[exit status 0]

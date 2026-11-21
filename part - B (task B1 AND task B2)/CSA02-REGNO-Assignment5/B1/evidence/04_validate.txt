@@ -1,0 +1,26 @@
+$ ./b1_validate
+=== Digital root tests ===
+zero (base case, smallest input)   digital_root(0) = 0 (expected 0, 1 calls)  PASS
+one (smallest positive)            digital_root(1) = 1 (expected 1, 1 calls)  PASS
+9 (largest single digit)           digital_root(9) = 9 (expected 9, 1 calls)  PASS
+10 (first multi-digit)             digital_root(10) = 1 (expected 1, 2 calls)  PASS
+ordinary value                     digital_root(38) = 2 (expected 2, 3 calls)  PASS
+multiple of 9                      digital_root(99999) = 9 (expected 9, 3 calls)  PASS
+long value, 3 levels               digital_root(987654321) = 9 (expected 9, 3 calls)  PASS
+my own value (98765432)            digital_root(98765432) = 8 (expected 8, 3 calls)  PASS
+largest int                        digital_root(2147483647) = 1 (expected 1, 4 calls)  PASS
+
+=== Power tests (linear, halving, iterative must all agree) ===
+exponent 0 (base case)             2^0 = 1 | lin 1 fast 1 iter 1  PASS
+exponent 1                         2^1 = 2 | lin 2 fast 2 iter 2  PASS
+ordinary even exponent             2^10 = 1024 | lin 1024 fast 1024 iter 1024  PASS
+ordinary odd exponent              3^5 = 243 | lin 243 fast 243 iter 243  PASS
+0^0 convention                     0^0 = 1 | lin 1 fast 1 iter 1  PASS
+0^n                                0^5 = 0 | lin 0 fast 0 iter 0  PASS
+1^large                            1^1000 = 1 | lin 1 fast 1 iter 1  PASS
+(-2)^3 negative base               -2^3 = -8 | lin -8 fast -8 iter -8  PASS
+my own value 7^13                  7^13 = 96889010407 | lin 96889010407 fast 96889010407 iter 96889010407  PASS
+near the long long limit           2^62 = 4611686018427387904 | lin 4611686018427387904 fast 4611686018427387904 iter 4611686018427387904  PASS
+
+Summary: ALL TESTS PASSED (0 failures)
+[exit status 0]

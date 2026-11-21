@@ -1,0 +1,5 @@
+Expected: linear: 1073741824 in 31 calls / fast : 1073741824 in 6 calls
+$ ./b1_complete_code
+linear: 1073741824 in 31 calls
+fast : 1073741824 in 6 calls
+[exit status 0]

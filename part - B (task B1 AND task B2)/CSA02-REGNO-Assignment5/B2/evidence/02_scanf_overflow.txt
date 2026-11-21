@@ -1,0 +1,27 @@
+# name[10] and age (set to 25) live in the same structure
+$ echo Anil | ./b2_scanf_unsafe
+Enter donor name (array holds 9 characters + NUL): stored name = "Anil"  (strlen = 4, array size = 10)
+age         = 25   (it was set to 25 before the read)
+[exit status 0]
+$ echo AAAAAAAAAAAAAAA | ./b2_scanf_unsafe          # 15 characters
+Enter donor name (array holds 9 characters + NUL): stored name = "AAAAAAAAAAAAAAA"  (strlen = 15, array size = 10)
+age         = 4276545   (it was set to 25 before the read)
+[exit status 0]
+$ python3 -c "print('B'*60)" | ./b2_scanf_unsafe   # 60 characters
+*** stack smashing detected ***: terminated
+Aborted (core dumped)
+[exit status 134]
+$ python3 -c "print('B'*60)" | ./b2_scanf_unsafe   # rebuilt with -fsanitize=address
+=================================================================
+==2877==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7f5296d00030 at pc 0x7f5299291ad0 bp 0x7ffc7bb04620 sp 0x7ffc7bb03da8
+WRITE of size 61 at 0x7f5296d00030 thread T0
+    #0 0x7f5299291acf in scanf_common ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors_format.inc:342
+    #1 0x7f52992cd1f2 in __isoc99_vscanf ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:1489
+    #2 0x7f52992cdc40 in __isoc99_scanf ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:1520
+    #3 0x55ee5156e3c2 in main /home/claude/CSA02-REGNO-Assignment5/B2/b2_scanf_unsafe.c:21
+    #4 0x7f5298e2a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #5 0x7f5298e2a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #6 0x55ee5156e204 in _start (/tmp/b2_scanf_asan+0x1204) (BuildId: 664be52b007e43e75aff258ab57b5325e7301dce)
+
+Address 0x7f5296d00030 is located in stack of thread T0 at offset 48 in frame
+[exit status 1]

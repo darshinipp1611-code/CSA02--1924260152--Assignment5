@@ -1,0 +1,4 @@
+$ ./b1_complete_code_twocalls
+linear: 1073741824 in 31 calls
+fast : 1073741824 in 63 calls
+[exit status 0]

@@ -1,0 +1,30 @@
+$ ./b1_limit linear 100000
+linear   n=100000      result=1  calls/iterations=100001  -> survived
+[exit status 0]
+$ ./b1_limit linear 1000000
+Segmentation fault (core dumped)   <-- stack overflow
+[exit status 139]
+$ ./b1_limit iter 2147483647
+iter     n=2147483647  result=1  calls/iterations=2147483647  -> survived
+[exit status 0]
+$ ./b1_limit fast 2147483647
+fast     n=2147483647  result=1  calls/iterations=32  -> survived
+[exit status 0]
+$ ./b1_limit iterfast 2147483647
+iterfast n=2147483647  result=1  calls/iterations=31  -> survived
+[exit status 0]
+# same source built with -O2 (gcc turns the recursion into a loop)
+$ /tmp/b1_limit_O2 linear 100000000
+linear   n=100000000   result=1  calls/iterations=100000001  -> survived
+[exit status 0]
+$ /tmp/b1_limit_asan linear 1000000     # built with -fsanitize=address
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==3381==ERROR: AddressSanitizer: stack-overflow on address 0x7ffefe271ff8 (pc 0x55bac8cde34a bp 0x7ffefe272010 sp 0x7ffefe272000 T0)
+    #0 0x55bac8cde34a in power_linear /home/claude/CSA02-REGNO-Assignment5/B1/b1_limit.c:22
+    #1 0x55bac8cde34e in power_linear /home/claude/CSA02-REGNO-Assignment5/B1/b1_limit.c:22
+    #2 0x55bac8cde34e in power_linear /home/claude/CSA02-REGNO-Assignment5/B1/b1_limit.c:22
+    #3 0x55bac8cde34e in power_linear /home/claude/CSA02-REGNO-Assignment5/B1/b1_limit.c:22
+    #4 0x55bac8cde34e in power_linear /home/claude/CSA02-REGNO-Assignment5/B1/b1_limit.c:22
+    #5 0x55bac8cde34e in power_linear /home/claude/CSA02-REGNO-Assignment5/B1/b1_limit.c:22
+    ... (remaining stack frames omitted) ...

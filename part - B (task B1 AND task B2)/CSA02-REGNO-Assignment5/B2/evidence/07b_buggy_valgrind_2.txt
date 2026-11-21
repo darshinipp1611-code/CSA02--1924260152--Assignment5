@@ -1,0 +1,35 @@
+$ valgrind --leak-check=full ./b2_memerr_buggy doublefree
+Invalid free() / delete / delete[] / realloc()
+   at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+   by 0x1092AC: double_free (b2_memerr_buggy.c:31)
+   by 0x1093A2: main (b2_memerr_buggy.c:46)
+ Address 0x4a7e040 is 0 bytes inside a block of size 8 free'd
+   at 0x484988F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+   by 0x1092A0: double_free (b2_memerr_buggy.c:30)
+   by 0x1093A2: main (b2_memerr_buggy.c:46)
+ Block was alloc'd at
+   at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+   by 0x109290: double_free (b2_memerr_buggy.c:29)
+   by 0x1093A2: main (b2_memerr_buggy.c:46)
+HEAP SUMMARY:
+    in use at exit: 0 bytes in 0 blocks
+  total heap usage: 1 allocs, 2 frees, 8 bytes allocated
+All heap blocks were freed -- no leaks are possible
+ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+[exit status 9]
+$ valgrind --leak-check=full ./b2_memerr_buggy leak
+HEAP SUMMARY:
+    in use at exit: 800 bytes in 1 blocks
+  total heap usage: 1 allocs, 0 frees, 800 bytes allocated
+800 bytes in 1 blocks are definitely lost in loss record 1 of 1
+   at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+   by 0x1092C5: leak (b2_memerr_buggy.c:36)
+   by 0x1093CA: main (b2_memerr_buggy.c:47)
+LEAK SUMMARY:
+   definitely lost: 800 bytes in 1 blocks
+   indirectly lost: 0 bytes in 0 blocks
+     possibly lost: 0 bytes in 0 blocks
+   still reachable: 0 bytes in 0 blocks
+        suppressed: 0 bytes in 0 blocks
+ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+[exit status 9]

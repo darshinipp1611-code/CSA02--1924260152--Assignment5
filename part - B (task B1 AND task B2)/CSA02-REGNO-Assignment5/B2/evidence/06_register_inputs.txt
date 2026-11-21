@@ -1,0 +1,31 @@
+$ name of 30 characters
+Donor name  (max 19 characters): error: name is longer than 19 characters - nothing was saved
+[exit status 1]
+$ empty name
+Donor name  (max 19 characters): error: name is empty - nothing was saved
+[exit status 1]
+$ name containing a comma
+Donor name  (max 19 characters): error: name must not contain a comma - nothing was saved
+[exit status 1]
+$ age = abc
+Donor name  (max 19 characters): Donor age   (18-65): error: age must be a whole number from 18 to 65 - nothing was saved
+[exit status 1]
+$ age = 17 (below limit)
+Donor name  (max 19 characters): Donor age   (18-65): error: age must be a whole number from 18 to 65 - nothing was saved
+[exit status 1]
+$ phone = 12ab
+Donor name  (max 19 characters): Donor age   (18-65): Donor phone (10-15 digits): error: phone must be 10-15 digits - nothing was saved
+[exit status 1]
+$ input ends after the name (EOF)
+Donor name  (max 19 characters): Donor age   (18-65): 
+error: no age supplied (end of input) - nothing was saved
+[exit status 1]
+# valid registration, then look the donor up:
+$ printf 'Latha Krishnan\n33\n9876543210\n' | ./b2_bloodbank register 7500 B+
+Donor name  (max 19 characters): Donor age   (18-65): Donor phone (10-15 digits): Registered donor 7500 (Latha Krishnan), group B+.
+[exit status 0]
+$ ./b2_bloodbank find B+
+Donors with blood group B+:
+  7500   Latha Krishnan      age 33  phone 9876543210   last donated 2026-11-21
+1 donor(s) found, 0 bad line(s) skipped.
+[exit status 0]
