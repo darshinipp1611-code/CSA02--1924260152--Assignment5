@@ -1,0 +1,12 @@
+B3.2  File size and I/O time  (median of 7 runs, sizeof(Donor)=64)
+donors    | file size (bytes)          | write all (ms)             | read all (ms)             
+          | text         binary        | text         binary        | text         binary       
+----------+----------------------------+----------------------------+---------------------------
+1000      | 44125        64000         | 0.38         0.22          | 0.34         0.01          
+10000     | 441258       640000        | 2.36         1.09          | 2.80         0.05          
+100000    | 4412500      6400000       | 23.76        12.49         | 30.92        1.16          
+
+B3.3  Update the 50,000th record of 100000  (set last_date)
+  binary, in place  (fseek+fread+fwrite) :     0.0047 ms  (median of 50)  verified: yes
+  text,   full rewrite (read+write+rename):    13.6492 ms  (median of 7)   verified: yes
+  speed-up of in-place binary update      :       2880 x

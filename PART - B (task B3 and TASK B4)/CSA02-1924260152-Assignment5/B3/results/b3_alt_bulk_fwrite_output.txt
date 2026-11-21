@@ -1,0 +1,4 @@
+n records  | per-record fwrite (calls/ms) | single fwrite (calls/ms)   | array memory
+1000       |       1000 calls    0.042 ms |          1 call     0.027 ms | 7.8 KB  (files identical: yes)
+100000     |     100000 calls    2.149 ms |          1 call     0.246 ms | 781.2 KB  (files identical: yes)
+5000000    |    5000000 calls   73.308 ms |          1 call    10.192 ms | 39062.5 KB  (files identical: yes)

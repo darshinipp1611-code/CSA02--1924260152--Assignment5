@@ -1,0 +1,19 @@
+records written: 10 | read from text: 10 | read from binary: 10
+sizeof(Donor) = 64 bytes
+
+#   ID      Name           Group Age  Phone       LastDon.  | txt  bin
+1   100000  Asha_Kumar     AB+   18   9000000000  20260101  | OK   OK  
+2   100001  Ravi_Kumar     B+    31   9000007919  20260612  | OK   OK  
+3   100002  Meena_Kumar    A+    44   9000015838  20261123  | OK   OK  
+4   100003  Karthik_Kumar  O+    57   9000023757  20260506  | OK   OK  
+5   100004  Divya_Kumar    AB-   22   9000031676  20261017  | OK   OK  
+6   100005  Arun_Kumar     B-    35   9000039595  20260428  | OK   OK  
+7   100006  Nila_Kumar     A-    48   9000047514  20260911  | OK   OK  
+8   100007  Suresh_Kumar   O-    61   9000055433  20260322  | OK   OK  
+9   100008  Asha_Devi      AB+   26   9000063352  20260805  | OK   OK  
+10  100009  Ravi_Devi      B+    39   9000071271  20260216  | OK   OK  
+
+file size  text   : 448 bytes (variable-length lines)
+file size  binary : 640 bytes (10 x 64)
+
+RESULT: PASS - data read back is identical in both formats.

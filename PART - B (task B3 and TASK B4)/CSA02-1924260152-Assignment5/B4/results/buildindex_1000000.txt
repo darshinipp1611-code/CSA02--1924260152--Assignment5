@@ -1,0 +1,1 @@
+mode=buildindex records=1000000 invalid_lines=0 listed=0 time_ms=707.2 heap_in_use_bytes=16782448 peak_rss_kb=33016 index_reads=0
